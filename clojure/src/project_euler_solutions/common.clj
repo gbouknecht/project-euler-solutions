@@ -1,20 +1,15 @@
 (ns project-euler-solutions.common)
 
-(defn divisor? [n & divisors]
+(defn divisor?
+  "Returns true if and only if n is divisible by one of the divisors."
+  [n & divisors]
   (not (nil? (some #(= (rem n %) 0) divisors))))
 
-(assert (true?  (divisor? 1 1)))
-(assert (true?  (divisor? 15 3)))
-(assert (true?  (divisor? 15 4 5)))
-(assert (true?  (divisor? 15 10 2 5 9)))
-(assert (false? (divisor? 1)))
-(assert (false? (divisor? 1 2)))
-(assert (false? (divisor? 15 4)))
-(assert (false? (divisor? 15 10 2 9)))
-
-(defn prime? [n]
+(defn prime?
+  "Returns true if and only if n is prime."
+  [n]
   (cond
-    (= n 1)        false
+    (< n 2)        false
     (< n 4)        true
     (even? n)      false
     (< n 9)        true
@@ -29,45 +24,35 @@
               :else                (recur (+ f 6)))
             true)))))
 
-(assert (false? (prime?  1)))
-(assert (true?  (prime?  2)))
-(assert (true?  (prime?  3)))
-(assert (false? (prime?  4)))
-(assert (true?  (prime?  5)))
-(assert (false? (prime?  6)))
-(assert (true?  (prime?  7)))
-(assert (false? (prime?  8)))
-(assert (false? (prime?  9)))
-(assert (false? (prime? 10)))
-(assert (true?  (prime? 11)))
-(assert (true?  (prime? 23)))
-(assert (false? (prime? 24)))
-
-(defn primes []
+(defn primes
+  "Returns a lazy sequence of primes."
+  []
   (filter prime? (iterate inc 2)))
 
-(assert (= [2 3 5 7 11 13 17 19 23] (take 9 (primes))))
-
 (defn prime-factors
+  "Returns the prime factors of n in ascending order.
+  
+  If primes is given as second parameter, that collection is used as the
+  sequence of primes. You may consider to use a cached collection of primes
+  when you are going to factorize a lot of numbers.
+
+  Precondition: n > 0
+  
+  Example: (prime-factors 63525) returns (3 5 5 7 11 11)"
   ([n]
-    (prime-factors n (primes)))
+   (prime-factors n (primes)))
   ([n primes]
-    (loop [result [], n n, primes primes]
-      (let [prime (first primes)]
-        (cond
-          (= n 1)            (reverse result)
-          (divisor? n prime) (recur (cons prime result) (quot n prime) primes)
-          :else              (recur result              n              (rest primes)))))))
+   (assert (> n 0))
+   (loop [result [], n n, primes primes]
+     (let [prime (first primes)]
+       (cond
+         (= n 1)            (reverse result)
+         (divisor? n prime) (recur (cons prime result) (quot n prime) primes)
+         :else              (recur result              n              (rest primes)))))))
 
-(assert (= [2]             (prime-factors     2)))
-(assert (= [3]             (prime-factors     3)))
-(assert (= [2 2]           (prime-factors     4)))
-(assert (= [3 3]           (prime-factors     9)))
-(assert (= [3 5 5 7 11 11] (prime-factors 63525)))
-
-(defn count-occurrences [coll]
+(defn count-occurrences
+  "Returns a map of the items of coll to the number of occurrences.
+  
+  Example: (count-occurrences [2 5 2 2 3 8 8 5]) returns {8 2, 3 1, 5 2, 2 3}"
+  [coll]
   (reduce (fn [result x] (assoc result x (inc (get result x 0)))) {} coll))
-
-(assert (= {}                                     (count-occurrences [])))
-(assert (= {13 1}                                 (count-occurrences [13])))
-(assert (= {1 1, 2 4, 3 4, 8 1, 10 2, 11 3, 45 1} (count-occurrences [2 11 8 3 45 1 11 2 3 2 3 10 3 11 2 10])))
