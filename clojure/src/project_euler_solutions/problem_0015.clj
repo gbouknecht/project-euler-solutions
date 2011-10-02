@@ -4,11 +4,11 @@
 (defn- next-binomial-coefficients [coefficients]
   (first (reduce (fn [[result prev] curr] [(conj result (+ prev curr)) curr]) [[] 0] (conj coefficients 0))))
 
-(defn- binomial-coefficients [n]
-  (reduce (fn [coefficients _] (next-binomial-coefficients coefficients)) [1] (range n)))
+(defn- binomial-coefficients []
+  (iterate next-binomial-coefficients [1]))
 
 (defn- count-routes [grid-size]
-  (apply max (binomial-coefficients (* 2 grid-size))))
+  (apply max (nth (binomial-coefficients) (* 2 grid-size))))
 
 (assert (= 6 (count-routes 2)))
 
