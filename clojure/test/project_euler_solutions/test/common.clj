@@ -14,6 +14,17 @@
        (divisor? 15 4)
        (divisor? 15 10 2 9)))
 
+(deftest test-pow
+  (are [expected actual] (= expected actual)
+                             1 (pow 1  0)
+                             1 (pow 2  0)
+                             1 (pow 3  0)
+                             2 (pow 2  1)
+                             4 (pow 2  2)
+                         32768 (pow 2 15)
+                33232930569601 (pow 7 16)
+       1180591620717411303424N (pow 2 70)))
+
 (deftest test-prime?
   (are [pred result] (pred result)
        false? (prime? -2)

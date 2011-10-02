@@ -5,6 +5,14 @@
   [n & divisors]
   (not (nil? (some #(= (rem n %) 0) divisors))))
 
+(defn pow 
+  "Returns n raised to power of x, both integers.
+  
+  Precondition: x >= 0"
+  [n x]
+  (assert (>= x 0))
+  (nth (iterate #(* %1 n) 1N) x))
+
 (defn prime?
   "Returns true if and only if n is prime."
   [n]

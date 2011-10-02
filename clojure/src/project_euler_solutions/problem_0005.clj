@@ -1,12 +1,6 @@
 (ns project-euler-solutions.problem-0005
   (:use [project-euler-solutions.common]))
 
-(defn- pow [n x]
-  (loop [result 1, x x]
-    (if (= x 0)
-      result
-      (recur (* result n) (dec x)))))
-
 (defn- max-occurrences [maps]
   (apply merge-with max maps))
 
