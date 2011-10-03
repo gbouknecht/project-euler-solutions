@@ -58,6 +58,18 @@
          (divisor? n prime) (recur (cons prime result) (quot n prime) primes)
          :else              (recur result              n              (rest primes)))))))
 
+(defn number-to-digits
+  "Returns n as a list of digits.
+
+  Precondition: n >= 0
+
+  Example: (number-to-digits 52893) returns (5 2 8 9 3)"
+  [n]
+  (assert (>= n 0))
+  (if (< n 10)
+    (list n)
+    (reverse (map #(rem % 10) (take-while #(not (zero? %)) (iterate #(quot % 10) n))))))
+
 (defn count-occurrences
   "Returns a map of the items of coll to the number of occurrences.
   

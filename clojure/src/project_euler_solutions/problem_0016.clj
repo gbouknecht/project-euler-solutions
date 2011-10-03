@@ -1,11 +1,6 @@
 (ns project-euler-solutions.problem-0016
   (:use [project-euler-solutions.common]))
 
-(defn- number-to-digits [n]
-  (if (< n 10)
-    '(n)
-    (reverse (map #(rem % 10) (take-while #(not (zero? %)) (iterate #(quot % 10) n))))))
-
 (defn- sum-of-digits [n]
   (apply + (number-to-digits n)))
 

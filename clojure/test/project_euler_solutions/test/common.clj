@@ -55,6 +55,14 @@
        [3 3]           (prime-factors     9)
        [3 5 5 7 11 11] (prime-factors 63525)))
 
+(deftest test-number-to-digits
+  (are [expected actual] (= expected actual)
+       '(0)         (number-to-digits 0)
+       '(1)         (number-to-digits 1)
+       '(9)         (number-to-digits 9)
+       '(1 0)       (number-to-digits 10)
+       '(5 2 8 9 3) (number-to-digits 52893)))
+
 (deftest test-count-occurrences
   (are [expected actual] (= expected actual)
        {}                                     (count-occurrences nil)
