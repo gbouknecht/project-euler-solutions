@@ -8,10 +8,10 @@
 
 (def words-20-to-90 {2 "twenty", 3 "thirty", 4 "forty", 5 "fifty", 6 "sixty", 7 "seventy", 8 "eighty", 9 "ninety"})
 
-(defn join-with-space-and-skip-nil [& args]
+(defn- join-with-space-and-skip-nil [& args]
   (join " " (filter (complement nil?) args)))
 
-(defn number-to-words [n]
+(defn- number-to-words [n]
   (assert (> n 0))
   (assert (<= n 1000))
   (let [[units tens hundreds thousands] (reverse (number-to-digits n))
@@ -29,16 +29,16 @@
       (if (and word-for-hundreds word-for-tens-and-units) "and")
       word-for-tens-and-units)))
 
-(defn count-letters [words]
+(defn- count-letters [words]
   (count (filter #(not (#{\space, \-} %)) words)))
 
-(defn count-letters-of-words-for-number [n]
+(defn- count-letters-of-words-for-number [n]
   (count-letters (number-to-words n)))
 
 (assert (= 23 (count-letters-of-words-for-number 342)))
 (assert (= 20 (count-letters-of-words-for-number 115)))
 
-(defn sum-of-count-of-letters-of-words-for-range [start end]
+(defn- sum-of-count-of-letters-of-words-for-range [start end]
   (apply + (map count-letters-of-words-for-number (range start end))))
 
 (assert (= 19 (sum-of-count-of-letters-of-words-for-range 1 6)))
