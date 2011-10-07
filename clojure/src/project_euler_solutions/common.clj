@@ -70,6 +70,14 @@
     (list n)
     (reverse (map #(rem % 10) (take-while #(not (zero? %)) (iterate #(quot % 10) n))))))
 
+(defn sum-of-digits
+  "Returns the sum of the digits of n.
+
+  Precondition: n >= 0"
+  [n]
+  (assert (>= n 0))
+  (apply + (number-to-digits n)))
+
 (defn count-occurrences
   "Returns a map of the items of coll to the number of occurrences.
   

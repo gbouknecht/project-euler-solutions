@@ -63,6 +63,12 @@
        '(1 0)       (number-to-digits 10)
        '(5 2 8 9 3) (number-to-digits 52893)))
 
+(deftest test-sum-of-digits
+  (are [expected actual] (= expected actual)
+        0 (sum-of-digits       0)
+        5 (sum-of-digits       5)
+       31 (sum-of-digits 4765234)))
+
 (deftest test-count-occurrences
   (are [expected actual] (= expected actual)
        {}                                     (count-occurrences nil)
