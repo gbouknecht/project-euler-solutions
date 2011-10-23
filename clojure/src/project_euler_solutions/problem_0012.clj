@@ -20,7 +20,7 @@
 (defn- first-triangle-number-where-divisor-count-is-greater-than [count]
   (first (for [n (iterate inc 2) :when (> (divisor-count-for-triangle-number-with-n n) count)] (triangle-number-with-n n))))
   
-(assert (= 28       (first-triangle-number-where-divisor-count-is-greater-than   5)))
+(assert (= 28 (first-triangle-number-where-divisor-count-is-greater-than 5)))
 
 (defn answer []
   (first-triangle-number-where-divisor-count-is-greater-than 500))
