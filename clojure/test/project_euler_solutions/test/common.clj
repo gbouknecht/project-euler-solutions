@@ -14,6 +14,18 @@
        (divisor? 15 4)
        (divisor? 15 10 2 9)))
 
+(deftest test-proper-divisors
+  (are [expected actual] (= expected actual)
+       '(1 2 4 7 14)                    (proper-divisors  28)
+       '(1 2 4 5 10 11 20 22 44 55 110) (proper-divisors 220)
+       '(1 2 4 71 142)                  (proper-divisors 284)))
+
+(deftest test-sum-of-proper-divisors
+  (are [expected actual] (= expected actual)
+        28 (sum-of-proper-divisors  28)
+       284 (sum-of-proper-divisors 220)
+       220 (sum-of-proper-divisors 284)))
+
 (deftest test-pow
   (are [expected actual] (= expected actual)
                              1 (pow 1  0)

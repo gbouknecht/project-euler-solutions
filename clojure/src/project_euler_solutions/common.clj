@@ -5,13 +5,23 @@
   [n & divisors]
   (not (nil? (some #(= (rem n %) 0) divisors))))
 
+(defn proper-divisors
+  "Returns the proper divisors of n in ascending order.
+
+  Example: (proper-divisors 28) returns (1 2 4 7 14)"
+  [n]
+  (filter #(divisor? n %) (range 1 (inc (quot n 2)))))
+
+(defn sum-of-proper-divisors [n]
+  (reduce + (proper-divisors n)))
+
 (defn pow 
   "Returns n raised to power of x, both integers.
   
   Precondition: x >= 0"
   [n x]
   (assert (>= x 0))
-  (nth (iterate #(* %1 n) 1N) x))
+  (nth (iterate #(* % n) 1N) x))
 
 (defn prime?
   "Returns true if and only if n is prime."
@@ -76,7 +86,7 @@
   Precondition: n >= 0"
   [n]
   (assert (>= n 0))
-  (apply + (number-to-digits n)))
+  (reduce + (number-to-digits n)))
 
 (defn count-occurrences
   "Returns a map of the items of coll to the number of occurrences.
