@@ -2,7 +2,7 @@
   (:use [project-euler-solutions.common]))
 
 (defn- multiples [start end & divisors]
-  (for [n (range start end) :when (apply divisor? n divisors)] n))
+  (for [n (range start end) :when (apply some-divisor n divisors)] n))
 
 (defn- sum-of-multiples [start end & divisors]
   (reduce + (apply multiples start end divisors)))

@@ -6,13 +6,22 @@
   (are [result] (true? result)
        (divisor? 1 1)
        (divisor? 15 3)
-       (divisor? 15 4 5)
-       (divisor? 15 10 2 5 9))
+       (divisor? 15 5))
   (are [result] (false? result)
-       (divisor? 1)
        (divisor? 1 2)
        (divisor? 15 4)
-       (divisor? 15 10 2 9)))
+       (divisor? 15 10)))
+
+(deftest test-some-divisor
+  (are [expected actual] (= expected actual)
+       1 (some-divisor 1 1)
+       3 (some-divisor 15 3)
+       5 (some-divisor 15 4 5)
+       5 (some-divisor 15 10 2 5 9)
+       nil (some-divisor 1)
+       nil (some-divisor 1 2)
+       nil (some-divisor 15 4)
+       nil (some-divisor 15 10 2 9)))
 
 (deftest test-proper-divisors
   (are [expected actual] (= expected actual)

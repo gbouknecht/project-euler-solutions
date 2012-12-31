@@ -1,9 +1,14 @@
 (ns project-euler-solutions.common)
 
 (defn divisor?
-  "Returns true if and only if n is divisible by one of the divisors."
-  [n & divisors]
-  (not (nil? (some #(= (rem n %) 0) divisors))))
+  "Returns true if and only if n is divisible by d."
+  [n d]
+  (= (rem n d) 0))
+
+(defn some-divisor
+  "Returns the first d in ds where d is a divisor of n, else nil."
+  [n & ds]
+  (first (filter #(divisor? n %) ds)))
 
 (defn proper-divisors
   "Returns the proper divisors of n in ascending order.
