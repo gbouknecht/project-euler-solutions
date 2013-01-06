@@ -1,0 +1,30 @@
+#!/bin/bash
+
+SESSION=euler
+
+tmux has-session -t $SESSION
+if [ $? != 0 ]
+then
+  tmux new-session -d -n main -s $SESSION
+  tmux split-window -v
+  tmux split-window -h
+  tmux select-pane -t 1
+  tmux resize-pane -D 10
+  for p in {1..3}
+  do
+    tmux send-keys -t $p 'PS1="\W > "' C-m
+    tmux send-keys -t $p 'clear' C-m
+  done
+  tmux send-keys -t 2 'lein test' C-m
+  tmux send-keys -t 3 'lein repl' C-m
+
+  tmux new-window -n git
+  tmux split-window -v
+  tmux select-pane -t 1
+  tmux resize-pane -D 10
+  tmux send-keys 'git status' C-m
+
+  tmux select-window -t 1
+fi
+
+tmux attach -t $SESSION
