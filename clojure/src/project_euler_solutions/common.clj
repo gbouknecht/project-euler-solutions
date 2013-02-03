@@ -10,12 +10,22 @@
   [n & ds]
   (first (filter #(divisor? n %) ds)))
 
+(defn divisors
+  "Returns the divisors of n in ascending order.
+
+  Example: (divisors 28) returns (1 2 4 7 14 28)"
+  [n]
+  (let [upper-bound     (inc (Math/floor (Math/sqrt n)))
+        lower-divisors  (filter #(divisor? n %) (range 1 upper-bound))
+        higher-divisors (map #(quot n %) lower-divisors)]
+    (sort (set (concat lower-divisors higher-divisors)))))
+
 (defn proper-divisors
   "Returns the proper divisors of n in ascending order.
 
   Example: (proper-divisors 28) returns (1 2 4 7 14)"
   [n]
-  (filter #(divisor? n %) (range 1 (inc (quot n 2)))))
+  (drop-last (divisors n)))
 
 (defn sum-of-proper-divisors [n]
   (reduce + (proper-divisors n)))

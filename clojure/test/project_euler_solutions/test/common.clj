@@ -23,6 +23,12 @@
        nil (some-divisor 15 4)
        nil (some-divisor 15 10 2 9)))
 
+(deftest test-divisors
+  (are [expected actual] (= expected actual)
+       '(1 2 4 7 14 28)                     (divisors  28)
+       '(1 2 4 5 10 11 20 22 44 55 110 220) (divisors 220)
+       '(1 2 4 71 142 284)                  (divisors 284)))
+
 (deftest test-proper-divisors
   (are [expected actual] (= expected actual)
        '(1 2 4 7 14)                    (proper-divisors  28)
