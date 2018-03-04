@@ -1,4 +1,6 @@
+*.iml
 *.swp
+.idea/
 .lein-failures
 .lein-repl-history
 .nrepl-port
