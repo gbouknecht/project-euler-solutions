@@ -1,5 +1,7 @@
 *.swp
 .lein-failures
+.lein-repl-history
+.nrepl-port
 classes/
 lib/
 tags
